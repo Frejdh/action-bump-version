@@ -46,6 +46,7 @@ runs:
       uses: actions/github-script@v6
       env:
         projectFramework: "${{ inputs.project-framework }}"
+        version: "${{ inputs.version }}"
       with:
         script: |
           const script = require("${{ github.action_path }}/scripts/run-bump-version-command.js");

@@ -21,7 +21,7 @@ module.exports = async ({core, exec}) => {
 
     switch (projectFramework.toLowerCase()) {
         case 'maven':
-            exec.exec("mvn", ["-B", "versions:set", `-DnewVersion=${version}`, "-DprocessAllModules", "-DgenerateBackupPoms=false"], options);
+            await exec.exec("mvn", ["-B", "versions:set", `-DnewVersion=${version}`, "-DprocessAllModules", "-DgenerateBackupPoms=false"], options);
             break;
     }
 
