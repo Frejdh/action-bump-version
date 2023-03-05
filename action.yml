@@ -58,9 +58,8 @@ runs:
         git config --local user.name "github-actions[bot]"
         git add . && git commit -m "Bumped to version ${{ inputs.version }}"
     - name: Push to remote
-      uses: ad-m/github-push-action@v0.6.0
+      uses: ad-m/github-push-action@master
       with:
-        repository: "${{ inputs.repository }}"
-        branch: "${{ inputs.branch }}"
-        github_token: "${{ inputs.ssh-key }}"
+        repository: "${{ inputs.repository || '' }}"
+        branch: "${{ inputs.branch || '' }}"
         ssh: true
