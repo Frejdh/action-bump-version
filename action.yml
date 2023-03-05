@@ -36,25 +36,19 @@ runs:
       shell: bash
       run: |
         echo PROJECT_FRAMEWORK="$(echo "${{ inputs.project-framework }}" | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
-        echo "$PROJECT_FRAMEWORK"
     - name: Checkout repository and branch
       uses: actions/checkout@v3
       with:
         ssh-key: "${{ inputs.ssh-key }}"
         repository: "${{ inputs.repository }}"
         ref: "${{ inputs.branch }}"
-    - name: Resolving command to use in order to bump the version
+    - name: Bump version
       uses: actions/github-script@v6
       env:
         projectFramework: "${{ inputs.project-framework }}"
       with:
         script: |
-          const script = require("${{ github.action_path }}/scripts/get-bump-version-command.js")
-    - name: Bump Maven project version to [${{ inputs.version }}]
-      shell: bash
-      run: |
-        echo "Attempting to resolve the command for [${{ env.PROJECT_FRAMEWORK }}]"
-        ${{ env.BUMP_VERSION_COMMAND }}
+          const script = require("${{ github.action_path }}/scripts/run-bump-version-command.js")
     - name: Create commit
       shell: bash
       run: |
