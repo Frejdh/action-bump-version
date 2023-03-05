@@ -36,18 +36,23 @@ runs:
       shell: bash
       run: >
         echo "PROJECT_FRAMEWORK="$(echo "${{ inputs.project-framework }}" | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV"
-        cat "$GITHUB_ENV"
+        echo "$PROJECT_FRAMEWORK"
     - name: Checkout repository and branch
       uses: actions/checkout@v3
       with:
         ssh-key: "${{ inputs.ssh-key }}"
         repository: "${{ inputs.repository }}"
         ref: "${{ inputs.branch }}"
+    - name: Resolving command to use in order to bump the version
+      uses: actions/github-script@v6
+      with:
+        env:
+          projectFramework: "${{ inputs.project-framework }}"
+        script: |
+          const script = require('./scripts/get-bump-version-command.js')
     - name: Bump Maven project version to [${{ inputs.version }}]
-      if: env.PROJECT_FRAMEWORK == 'maven'
       shell: bash
-      run: >
-        mvn -B versions:set "-DnewVersion=${{ inputs.version }}" -DprocessAllModules -DgenerateBackupPoms=false
+      run: echo "Attempting to resolve the command for [${{ env.PROJECT_FRAMEWORK }}]" && ${{ env.BUMP_VERSION_COMMAND }}
     - name: Create commit
       shell: bash
       run: |
@@ -55,7 +60,6 @@ runs:
         git config --local user.name "github-actions[bot]"
         git add . && git commit -m "Bumped to version ${{ inputs.version }}"
     - name: Push to remote
-      if: inputs.release-branch-enabled == 'true'
       uses: ad-m/github-push-action@v0.6.0
       with:
         repository: "${{ inputs.repository }}"
