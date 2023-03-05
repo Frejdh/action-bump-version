@@ -1,6 +1,6 @@
 // https://github.com/actions/github-script
 
-module.exports = async ({github, context, core}) => {
+module.exports = async ({core, exec}) => {
     const {
         projectFramework,
         version,
@@ -18,7 +18,6 @@ module.exports = async ({github, context, core}) => {
             }
         }
     };
-    const exec = require('@actions/exec');
 
     switch (projectFramework.toLowerCase()) {
         case 'maven':

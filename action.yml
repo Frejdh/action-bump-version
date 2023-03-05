@@ -48,7 +48,8 @@ runs:
         projectFramework: "${{ inputs.project-framework }}"
       with:
         script: |
-          const script = require("${{ github.action_path }}/scripts/run-bump-version-command.js")
+          const script = require("${{ github.action_path }}/scripts/run-bump-version-command.js");
+          script({core, exec});
     - name: Create commit
       shell: bash
       run: |
