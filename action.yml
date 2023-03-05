@@ -49,7 +49,7 @@ runs:
         projectFramework: "${{ inputs.project-framework }}"
       with:
         script: |
-          const script = require("${{ github.workspace }}/scripts/get-bump-version-command.js")
+          const script = require("${{ github.action_path }}/scripts/get-bump-version-command.js")
     - name: Bump Maven project version to [${{ inputs.version }}]
       shell: bash
       run: echo "Attempting to resolve the command for [${{ env.PROJECT_FRAMEWORK }}]" && ${{ env.BUMP_VERSION_COMMAND }}
