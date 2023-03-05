@@ -24,7 +24,7 @@ inputs:
     description: Bump a specific branch. If blank, the default master/main branch will be used
     default: ''
 
-  ssh-key:
+  github-token:
     description: Only required when checking out another repository
     required: false
     default: ''
@@ -39,7 +39,7 @@ runs:
     - name: Checkout repository and branch
       uses: actions/checkout@v3
       with:
-        ssh-key: "${{ inputs.ssh-key }}"
+        ssh-key: "${{ inputs.github-token }}"
         repository: "${{ inputs.repository }}"
         ref: "${{ inputs.branch }}"
     - name: Bump version
@@ -62,4 +62,4 @@ runs:
       with:
         repository: "${{ inputs.repository || '' }}"
         branch: "${{ inputs.branch || '' }}"
-        ssh: true
+        github_token: "${{ inputs.github-token || github.token }}"
