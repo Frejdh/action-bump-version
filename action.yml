@@ -34,7 +34,7 @@ runs:
   steps:
     - name: Prepare environment
       shell: bash
-      run: >
+      run: |
         echo PROJECT_FRAMEWORK="$(echo "${{ inputs.project-framework }}" | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
         echo "$PROJECT_FRAMEWORK"
     - name: Checkout repository and branch
