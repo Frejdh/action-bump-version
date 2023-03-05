@@ -45,9 +45,9 @@ runs:
         ref: "${{ inputs.branch }}"
     - name: Resolving command to use in order to bump the version
       uses: actions/github-script@v6
+      env:
+        projectFramework: "${{ inputs.project-framework }}"
       with:
-        env:
-          projectFramework: "${{ inputs.project-framework }}"
         script: |
           const script = require('./scripts/get-bump-version-command.js')
     - name: Bump Maven project version to [${{ inputs.version }}]
