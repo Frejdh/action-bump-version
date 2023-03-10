@@ -7,6 +7,11 @@ inputs:
     description: Version to bump to
     required: true
 
+  github-token:
+    description: Either use `secrets.GITHUB_TOKEN` for the same repository. Or for other repositories, use a personal access token.
+    required: true
+    default: ''
+
   project-framework:
     description: Select what kind of framework the project uses. Note, only Maven is supported at the moment!
     default: Maven
@@ -24,10 +29,6 @@ inputs:
     description: Bump a specific branch. If blank, the default master/main branch will be used
     default: ''
 
-  github-token:
-    description: Only required when checking out another repository
-    required: false
-    default: ''
 
 runs:
   using: composite
@@ -64,4 +65,4 @@ runs:
       with:
         repository: "${{ inputs.repository || '' }}"
         branch: "${{ inputs.branch || '' }}"
-        github_token: "${{ inputs.github-token || github.token }}"
+        github_token: "${{ inputs.github-token }}"
