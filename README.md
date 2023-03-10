@@ -16,27 +16,29 @@ File: `.github/workflows/bump-version.yml`
 name: Bump versions
 
 on:
-    workflow_dispatch:
-        inputs:
-            version:
-                description: Version to bump to
-                required: true
+  workflow_dispatch:
+    inputs:
+       version:
+       description: Version to bump to
+       required: true
 
-            branch:
-                description: Bump a specific branch. If blank, the default master/main branch will be used
-                default: ''
+       branch:
+         description: Bump a specific branch. If blank, the default master/main branch will be used
+         default: ''
 
 jobs:
-    bump-versions:
-        runs-on: ubuntu-latest
-        steps:
-            - name: Bump versions
-              uses: Frejdh/action-bump-version@master
-              with:
-                  version: ${{ inputs.version }}
-                  branch: ${{ inputs.branch }}
-
+  bump-versions:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Bump versions
+      uses: Frejdh/action-bump-version@master
+      with:
+        version: ${{ inputs.version }}
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ inputs.branch }}
 ```
+
+Note, the input parameters `version` and `github-token` are required!
 
 ## Required permissions
 In order for the action workflow to push the new changes, the permissions might have to be configured first.
