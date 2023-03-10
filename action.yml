@@ -42,6 +42,8 @@ runs:
         ssh-key: "${{ inputs.github-token }}"
         repository: "${{ inputs.repository }}"
         ref: "${{ inputs.branch }}"
+        persist-credentials: false
+        fetch-depth: 0
     - name: Bump version
       uses: actions/github-script@v6
       env:
