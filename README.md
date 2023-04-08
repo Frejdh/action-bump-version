@@ -19,8 +19,8 @@ on:
   workflow_dispatch:
     inputs:
        version:
-       description: Version to bump to
-       required: true
+         description: Version to bump to
+         required: true
 
        branch:
          description: Bump a specific branch. If blank, the default master/main branch will be used
