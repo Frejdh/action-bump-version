@@ -38,14 +38,14 @@ runs:
       run: |
         echo PROJECT_FRAMEWORK="$(echo "${{ inputs.project-framework }}" | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
     - name: Checkout repository and branch
-      uses: actions/checkout@v3
+      uses: actions/checkout@v5
       with:
         repository: "${{ inputs.repository }}"
         ref: "${{ inputs.branch }}"
         persist-credentials: false
         fetch-depth: 0
     - name: Bump version
-      uses: actions/github-script@v6
+      uses: actions/github-script@v8
       env:
         projectFramework: "${{ inputs.project-framework }}"
         version: "${{ inputs.version }}"
@@ -60,7 +60,7 @@ runs:
         git config --local user.name "github-actions[bot]"
         git add . && git commit -m "Bumped to version ${{ inputs.version }}"
     - name: Push to remote
-      uses: ad-m/github-push-action@master
+      uses: ad-m/github-push-action@v0.8.0
       with:
         repository: "${{ inputs.repository || '' }}"
         branch: "${{ inputs.branch || '' }}"
