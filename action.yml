@@ -60,7 +60,7 @@ runs:
         git config --local user.name "github-actions[bot]"
         git add . && git commit -m "Bumped to version ${{ inputs.version }}"
     - name: Push to remote
-      uses: ad-m/github-push-action@v1
+      uses: ad-m/github-push-action@881a6320fdb16eb5318c5054f31c218aec2b324c # v1.3.0
       with:
         repository: "${{ inputs.repository || '' }}"
         branch: "${{ inputs.branch || '' }}"
